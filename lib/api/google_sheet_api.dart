@@ -36,7 +36,6 @@ class GoogleSheetApi {
   //Count rows
   static Future countAccountRows() async {
     while (await _worksheet!.values.value(column: 3, row: numberOfAccounts + 1) != '') {
-      //Walang +1 kasi meron ako heading
       numberOfAccounts += 1;
     }
     numberOfAccounts -= 1;

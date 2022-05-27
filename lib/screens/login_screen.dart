@@ -204,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ..onTap = () async {
                             Navigator.pop(context);
                             Navigator.pushNamed(context, '/Register');
-                            await Future.delayed(const Duration(milliseconds: 500));
+                            await Future.delayed(const Duration(milliseconds: 100));
                           },
                       ),
                     ],

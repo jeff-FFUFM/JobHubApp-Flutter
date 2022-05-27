@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                               },
                               decoration: const InputDecoration(
-                                hintText: 'Email Address',
+                                hintText: 'Username',
                                 hintStyle: TextStyle(fontSize: 16),
                                 border: InputBorder.none,
                               ),
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SvgPicture.asset('images/padlock.svg'),
                           const SizedBox(width: 12),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.65,
+                            width: MediaQuery.of(context).size.width * 0.52,
                             child: TextField(
                               controller: _password,
                               onTap: () {
