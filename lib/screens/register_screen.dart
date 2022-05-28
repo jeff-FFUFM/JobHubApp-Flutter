@@ -43,16 +43,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               children: [
                 Align(
-                  alignment: Alignment(-1.075, 0),
+                  alignment: const Alignment(-1.075, 0),
                   child: GestureDetector(
                       onTap: () async {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, '/Login');
                         await Future.delayed(const Duration(milliseconds: 500));
                       },
-                      child: Icon(Icons.chevron_left, size: 35)),
+                      child: const Icon(Icons.chevron_left, size: 35)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 37.24,
                 ),
                 Column(
@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 18,
                           ),
                           SvgPicture.asset('images/person.svg'),
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Container(
@@ -114,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 18,
                           ),
                           SvgPicture.asset('images/message.svg'),
@@ -148,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.white,
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 18,
                           ),
                           SvgPicture.asset('images/padlock.svg'),

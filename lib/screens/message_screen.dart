@@ -1,43 +1,55 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:jobs_app/widgets/bottom_nav_bar.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:jobs_app/models/message.dart';
+import 'package:jobs_app/screens/direct_message_screen.dart';
+import 'package:jobs_app/state_files/page_data.dart';
 
-class MessageScreen extends StatelessWidget {
+import 'package:jobs_app/widgets/bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
+
+class MessageScreen extends StatefulWidget {
   const MessageScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: IconButton(
                   onPressed: () async {
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Provider.of<PageData>(context, listen: false).moveMarkerTo('/Home');
                     Future.delayed(
-                      Duration(milliseconds: 300),
+                      const Duration(milliseconds: 300),
                     );
                     await Navigator.pushNamed(context, '/Home');
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.chevron_left,
                     size: 50,
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 'Messages',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 18.0),
+              const Padding(
+                padding: EdgeInsets.only(right: 18.0),
                 child: Icon(
                   Icons.search,
                   size: 40,
@@ -48,50 +60,116 @@ class MessageScreen extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             height: 500,
-            width: double.infinity,
+            width: 380,
             child: ListView.builder(
+              itemCount: MessageDetails.messagesList.length,
               itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 9),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                final messagesList = MessageDetails.messagesList[index];
+                return Slidable(
+                  key: Key(messagesList.sender),
+                  closeOnScroll: true,
+                  endActionPane: ActionPane(
+                    extentRatio: 0.2,
+                    motion: const BehindMotion(),
+                    dismissible: DismissiblePane(
+                      closeOnCancel: true,
+                      onDismissed: () {
+                        setState(() {
+                          MessageDetails.messagesList.removeAt(index);
+                          print('Messages Length: ${MessageDetails.messagesList.length}');
+                        });
+                      },
+                    ),
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 16,
-                            child: Container(color: Colors.red),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 11, right: 35, bottom: 11, left: 10),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(13),
+                              bottomLeft: Radius.circular(13),
+                            ),
+                            color: Color(0xFFFF4141),
                           ),
-                          SizedBox(
-                            width: 25,
+                          child: GestureDetector(
+                            //Todo: DELETE MESSAGE FROM LIST
+
+                            onTap: () {
+                              setState(() {
+                                MessageDetails.messagesList.removeAt(index);
+                                print('Messages Length using Gesture: ${MessageDetails.messagesList.length}');
+                              });
+                            },
+                            child: Icon(Icons.delete_outline_rounded),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Name ${index + 1}'),
-                              Text('${index + 1}Sino ba kasi yung kausap mo kani..'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      CircleAvatar(
-                        radius: 10,
-                        child: Text(
-                          '2',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
                         ),
-                        backgroundColor: Color(0xFF4CA6A8),
                       ),
                     ],
                   ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DirectMessageScreen(message: MessageDetails.messagesList[index]),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundImage: AssetImage(
+                                    'images/message/pjnf.jpg'), //Todo: Make dynamic, complete list first
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    MessageDetails().messageName(index),
+                                    style: TextStyle(
+                                      fontFamily: 'PoppinsSemiBold',
+                                      fontSize: 16,
+                                      color: Color(0xFF1A1D1E),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(MessageDetails().messageSnippet(index)),
+                                ],
+                              ),
+                            ],
+                          ),
+                          MessageDetails().noOfUnreadMessage(index) == '0'
+                              ? Container()
+                              : CircleAvatar(
+                                  radius: 10,
+                                  child: Text(
+                                    MessageDetails().noOfUnreadMessage(index),
+                                    style: TextStyle(fontSize: 12, color: Colors.white),
+                                  ),
+                                  backgroundColor: Color(0xFF4CA6A8),
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
-              itemCount: 100,
             ),
           ),
-          Spacer(),
-          Padding(padding: EdgeInsets.only(bottom: 30), child: BottomNavBar()),
+          const Spacer(),
+          Padding(padding: const EdgeInsets.only(bottom: 30), child: BottomNavBar()),
         ],
       ),
     );

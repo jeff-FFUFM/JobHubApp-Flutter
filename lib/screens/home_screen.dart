@@ -4,7 +4,7 @@ import 'package:jobs_app/constants/job_post_samples.dart';
 import 'package:jobs_app/page_transitions/custom_page_route.dart';
 import 'package:jobs_app/widgets/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:jobs_app/state_files/page.dart';
+import 'package:jobs_app/state_files/page_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-          color: Color(0xFFFBFBFB),
+          color: const Color(0xFFFBFBFB),
           child: Column(
             children: [
               Padding(
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -65,14 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       width: 266,
                       height: 51.76,
-                      padding: EdgeInsets.only(left: 18),
+                      padding: const EdgeInsets.only(left: 18),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: TextField(
                         autofocus: false,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Search here...',
                           border: InputBorder.none,
                         ),
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 28.65, left: 20.79, right: 22),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text(
                       'Popular Jobs',
                       style: TextStyle(
@@ -105,12 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              PopularJobsWidget(), //Horizontal
+              const PopularJobsWidget(), //Horizontal
               Padding(
                 padding: const EdgeInsets.only(top: 15, left: 20.79, right: 22),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Recent Posts'),
                     Text('Show All'),
                   ],
@@ -118,10 +118,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 height: 220,
-                padding: EdgeInsets.only(left: 20.79, right: 22),
+                padding: const EdgeInsets.only(left: 20.79, right: 22),
                 child: ListView.separated(
                   scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     final jposts = Jobs().getRecentJobPosts[index];
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color.fromARGB(1, 64, 59, 75), offset: Offset(-10, 0), blurRadius: 3),
                           BoxShadow(
@@ -155,23 +155,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ), //!edit
-                          SizedBox(width: 15),
+                          const SizedBox(width: 15),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 jposts.companyName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'PoppinsSemiBold',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text('Full Time'),
+                              const Text('Full Time'),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 15.0),
                             child: Text(jposts.salary),
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 10,
                     );
                   },
@@ -211,20 +211,20 @@ class PopularJobsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 152.78,
       child: ListView.separated(
         itemCount: PopularJobs().popularJobPosts.length,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final jposts = PopularJobs().getPopularJobPosts;
           return Container(
             width: 270.29,
-            padding: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(color: Color(0x09403B4B), offset: Offset(0.1, 0.1), blurRadius: 0.1),
                 BoxShadow(color: Color(0x09403B4B), offset: Offset(0.1, -0.1), blurRadius: 0.1),
                 BoxShadow(color: Color(0x09403B4B), offset: Offset(0, -0.2), blurRadius: 0.1),
@@ -237,7 +237,7 @@ class PopularJobsWidget extends StatelessWidget {
                   children: [
                     Container(
                       width: 45,
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         bottom: 1,
                         right: 10,
                       ),
@@ -250,10 +250,10 @@ class PopularJobsWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 5, bottom: 9.5),
+                      padding: const EdgeInsets.only(left: 5, bottom: 9.5),
                       child: Text(
                         jposts[index].companyName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF6A6A6A),
@@ -261,10 +261,10 @@ class PopularJobsWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 5, bottom: 6.5),
+                      padding: const EdgeInsets.only(left: 5, bottom: 6.5),
                       child: Text(
                         jposts[index].jobTitle,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.42,
@@ -273,23 +273,23 @@ class PopularJobsWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 5),
+                      padding: const EdgeInsets.only(left: 5),
                       child: Row(
                         children: [
                           Text(
                             jposts[index].salary,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF151313),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
                             jposts[index].location,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF6A6A6A),
@@ -300,10 +300,10 @@ class PopularJobsWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 40.5),
+                    padding: EdgeInsets.only(left: 40.5),
                     child: Icon(
                       Icons.favorite,
                       color: Color(0xFFFF0000),

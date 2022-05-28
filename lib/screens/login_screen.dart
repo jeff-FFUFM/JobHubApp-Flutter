@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobs_app/models/message.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 18,
                       ),
                       SvgPicture.asset('images/message.svg'),
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 18,
                       ),
                       SvgPicture.asset('images/padlock.svg'),
@@ -195,11 +196,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: RichText(
                       text: TextSpan(
                     text: 'New User? ',
-                    style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Poppins'),
+                    style: const TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Poppins'),
                     children: [
                       TextSpan(
                         text: 'Create Account',
-                        style: TextStyle(fontWeight: FontWeight.w800),
+                        style: const TextStyle(fontWeight: FontWeight.w800),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             Navigator.pop(context);

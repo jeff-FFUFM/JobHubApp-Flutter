@@ -9,8 +9,9 @@ import 'package:jobs_app/screens/register_screen.dart';
 import 'package:jobs_app/screens/settings_screen.dart';
 import 'package:jobs_app/screens/splash_screen.dart';
 import 'package:jobs_app/screens/message_screen.dart';
+import 'package:jobs_app/state_files/notification_settings.dart';
 import 'package:provider/provider.dart';
-import 'package:jobs_app/state_files/page.dart';
+import 'package:jobs_app/state_files/page_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,15 +38,13 @@ class JobApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => PageData(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => NotificationSettings(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'JobApp',
-        // routes: {
-        //   '/': (context) => const SplashScreen(),
-        //   '/Login': (context) => const LoginScreen(),
-        //   '/Register': (context) => const RegisterScreen(),
-        // },
         onGenerateRoute: (route) => routeGenerator(route),
         theme: ThemeData(fontFamily: 'Poppins'),
       ),
@@ -55,6 +54,8 @@ class JobApp extends StatelessWidget {
 
 Route<dynamic> routeGenerator(RouteSettings settings) {
   switch (settings.name) {
+    case '/Splash':
+      return CustomPageRoute(child: const SplashScreen());
     case '/Login':
       return CustomPageRoute(child: const LoginScreen());
     case '/Register':
@@ -66,7 +67,7 @@ Route<dynamic> routeGenerator(RouteSettings settings) {
     case '/Profile':
       return CustomPageRoute(child: const ProfileScreen());
     case '/Settings':
-      return CustomPageRoute(child: const SettingsScreen());
+      return CustomPageRoute(child: SettingsScreen());
 
     default:
       return CustomPageRoute(child: const HomeScreen()); //!!change later to splash Screen

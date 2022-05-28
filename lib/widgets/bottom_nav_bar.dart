@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobs_app/page_transitions/custom_page_route.dart';
-import 'package:jobs_app/screens/message_screen.dart';
-import 'package:jobs_app/state_files/page.dart';
 import 'package:provider/provider.dart';
 
+import 'package:jobs_app/state_files/page_data.dart';
+
 class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
+
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -17,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     String currentPage = pageManager.page;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: 15, bottom: 15),
+      padding: const EdgeInsets.only(top: 15, bottom: 15),
       decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -34,14 +35,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           isCurrentPage: currentPage == '/Home',
           image: SvgPicture.asset(
             'images/home.svg',
-            color: currentPage == '/Home' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+            color: currentPage == '/Home' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           ),
-          fontColor: currentPage == '/Home' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+          fontColor: currentPage == '/Home' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           onTap: () async {
             if (currentPage != '/Home') {
-              pageManager.moveTo('/Home');
+              pageManager.moveMarkerTo('/Home');
               Navigator.pop(context);
-              Future.delayed(Duration(milliseconds: 100));
+              Future.delayed(const Duration(milliseconds: 100));
               await Navigator.pushNamed(context, '/Home');
               //print('1Page is ${pageManager.page}');
             }
@@ -52,14 +53,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           isCurrentPage: currentPage == '/Message',
           image: SvgPicture.asset(
             'images/chat.svg',
-            color: currentPage == '/Message' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+            color: currentPage == '/Message' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           ),
-          fontColor: currentPage == '/Message' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+          fontColor: currentPage == '/Message' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           onTap: () async {
             if (currentPage != '/Message') {
-              pageManager.moveTo('/Message');
+              pageManager.moveMarkerTo('/Message');
               Navigator.pop(context);
-              Future.delayed(Duration(milliseconds: 100));
+              Future.delayed(const Duration(milliseconds: 100));
               await Navigator.pushNamed(context, '/Message');
               //print('2Page is ${pageManager.page}');
             }
@@ -70,14 +71,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           isCurrentPage: currentPage == '/Profile',
           image: SvgPicture.asset(
             'images/profile.svg',
-            color: currentPage == '/Profile' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+            color: currentPage == '/Profile' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           ),
-          fontColor: currentPage == '/Profile' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+          fontColor: currentPage == '/Profile' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           onTap: () async {
             if (currentPage != '/Profile') {
-              pageManager.moveTo('/Profile');
+              pageManager.moveMarkerTo('/Profile');
               Navigator.pop(context);
-              Future.delayed(Duration(milliseconds: 100));
+              Future.delayed(const Duration(milliseconds: 100));
               await Navigator.pushNamed(context, '/Profile');
               //print('3Page is ${pageManager.page}');
             }
@@ -88,14 +89,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           isCurrentPage: currentPage == '/Settings',
           image: SvgPicture.asset(
             'images/settings.svg',
-            color: currentPage == '/Settings' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+            color: currentPage == '/Settings' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           ),
-          fontColor: currentPage == '/Settings' ? Color(0xFF4CA6A8) : Color(0xFFA8A8AA),
+          fontColor: currentPage == '/Settings' ? const Color(0xFF4CA6A8) : const Color(0xFFA8A8AA),
           onTap: () async {
             if (currentPage != '/Settings') {
-              pageManager.moveTo('/Settings');
+              pageManager.moveMarkerTo('/Settings');
               Navigator.pop(context);
-              Future.delayed(Duration(milliseconds: 100));
+              Future.delayed(const Duration(milliseconds: 100));
               await Navigator.pushNamed(context, '/Settings');
               //print('4Page is ${pageManager.page}');
             }
@@ -113,19 +114,20 @@ class NavBarIcon extends StatelessWidget {
   final Color fontColor;
   final void Function()? onTap;
 
-  NavBarIcon({
+  const NavBarIcon({
+    Key? key,
     required this.title,
     required this.isCurrentPage,
     required this.image,
     required this.fontColor,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         width: 90,
         height: 61,
         child: Column(
