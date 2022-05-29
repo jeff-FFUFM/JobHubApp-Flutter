@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobs_app/models/message.dart';
 import 'package:jobs_app/screens/call_screen.dart';
 import 'package:jobs_app/state_files/page_data.dart';
-//import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:jobs_app/widgets/back_button.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -31,6 +31,7 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
   @override
   void initState() {
     _message = TextEditingController();
+    super.initState();
   }
 
   @override
@@ -61,19 +62,11 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                 ),
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Provider.of<PageData>(context, listen: false).moveMarkerTo('/Message');
-                        },
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          size: 50,
-                          color: Color(0xFF1A1D1E),
-                        ),
-                      ),
+                    BackButtonWidget(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Provider.of<PageData>(context, listen: false).moveMarkerTo('/Message');
+                      },
                     ),
                     Spacer(),
                     CircleAvatar(

@@ -1,0 +1,5 @@
+enum MyTab {
+  DESCRIPTION,
+  COMPANY,
+  REVIEWS,
+}

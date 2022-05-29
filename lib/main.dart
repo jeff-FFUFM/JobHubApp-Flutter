@@ -10,6 +10,7 @@ import 'package:jobs_app/screens/register_screen.dart';
 import 'package:jobs_app/screens/settings_screen.dart';
 import 'package:jobs_app/screens/splash_screen.dart';
 import 'package:jobs_app/screens/message_screen.dart';
+import 'package:jobs_app/models/home_screen_tab.dart';
 import 'package:jobs_app/state_files/notification_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:jobs_app/state_files/page_data.dart';

@@ -4,9 +4,9 @@ class JobPost {
   String jobTitle;
   String salary;
   String location;
-  String jobDescription;
-  String companyDetails;
-  Review reviews;
+  List<String> jobDescription;
+  List<String> companyDetails;
+  List<String> reviews;
 
   JobPost({
     required this.imageAddress,

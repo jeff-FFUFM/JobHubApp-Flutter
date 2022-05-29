@@ -18,6 +18,8 @@ class CallScreen extends StatefulWidget {
 
 class _CallScreenState extends State<CallScreen> {
   bool isScreenSwapped = false;
+  bool isCameraOn = true;
+  bool isSoundOn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,9 @@ class _CallScreenState extends State<CallScreen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Image.asset(
-                isScreenSwapped ? widget.myImageAdress : widget.senderImageAddress,
+                isScreenSwapped
+                    ? (isCameraOn ? widget.myImageAdress : 'images/black.png')
+                    : widget.senderImageAddress,
                 scale: 1,
                 fit: BoxFit.fitHeight,
               ),
@@ -50,10 +54,14 @@ class _CallScreenState extends State<CallScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage(isScreenSwapped ? widget.senderImageAddress : widget.myImageAdress),
+                    image: AssetImage(
+                      isScreenSwapped
+                          ? widget.senderImageAddress
+                          : (isCameraOn ? widget.myImageAdress : 'images/black.png'),
+                    ),
                     fit: BoxFit.cover,
                   ),
-                  color: Colors.orange,
+                  color: Colors.transparent,
                 ),
               ),
             ),
@@ -80,7 +88,7 @@ class _CallScreenState extends State<CallScreen> {
           Align(
             alignment: Alignment(0, 0.261),
             child: Text(
-              'Seol In Ah',
+              isScreenSwapped ? 'My Screen' : 'Seol In Ah',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -131,28 +139,52 @@ class _CallScreenState extends State<CallScreen> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(0.535, 0.55),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.white,
-              child: SvgPicture.asset(
-                'images/camera.svg',
-                width: 22,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isCameraOn = !isCameraOn;
+              });
+            },
+            child: Align(
+              alignment: Alignment(0.535, 0.55),
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.white,
+                child: isCameraOn
+                    ? SvgPicture.asset(
+                        'images/camera.svg',
+                        width: 22,
+                      )
+                    : Image.asset(
+                        'images/camera_off.png',
+                        width: 19,
+                      ),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment(-0.535, 0.55),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.white)),
-              child: CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.transparent,
-                child: SvgPicture.asset(
-                  'images/mic.svg',
-                  width: 22,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isSoundOn = !isSoundOn;
+              });
+            },
+            child: Align(
+              alignment: Alignment(-0.535, 0.55),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.white)),
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.transparent,
+                  child: isSoundOn
+                      ? SvgPicture.asset(
+                          'images/mic.svg',
+                          width: 22,
+                        )
+                      : Image.asset(
+                          'images/mic_mute1.png',
+                          width: 13,
+                        ),
                 ),
               ),
             ),
