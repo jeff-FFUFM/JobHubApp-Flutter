@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:jobs_app/models/people.dart';
 
 class Message {
@@ -14,9 +15,24 @@ class Message {
   });
 }
 
-class MessageDetails {
+class DirectMessageConversation {
+  final dateDefault = DateTime(2022, 1, 5, 17, 30);
+  String sender;
+  String messages;
+  int messageNumber;
+  DateTime date = DateTime(2022, 1, 5, 17, 30);
+
+  DirectMessageConversation({
+    required this.sender,
+    required this.messages,
+    required this.messageNumber,
+    required this.date,
+  });
+}
+
+class MessageDetails extends ChangeNotifier {
   static List<People> personsList = [
-    People(name: 'Agons', imageAddress: 'images/people/...'),
+    People(name: 'Seol In Ah', imageAddress: 'images/people/...'),
     People(name: 'Sarah', imageAddress: 'images/people/...'),
     People(name: 'Pia', imageAddress: 'images/people/...'),
     People(name: 'Mark', imageAddress: 'images/people/...'), //!
@@ -30,60 +46,74 @@ class MessageDetails {
     People(name: 'Via', imageAddress: 'images/people/...'),
   ];
 
-  static List<Message> messagesList = [
+  List<Message> messagesList = [
     Message(
-      sender: 'Agon',
+      sender: 'Seol In Ah',
       messageSnippet:
-          'Hi Jeffrey! We have received your application for the position...', //! Change later to variable from excel para latest
+          'Hi Jeffrey! We have processed your application ...', //! Change later to variable from excel para latest
       unreadMessages: 3,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/seol.jpg',
     ),
     Message(
       sender: 'Sarah',
       messageSnippet:
           'Hey Jeff! I\'ve seen you post regarding climate change solutions', //! Change later to variable from excel para latest
       unreadMessages: 3,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/sarah.jpg',
     ),
     Message(
       sender: 'Pia',
       messageSnippet:
           'Uy Jeff! Kumusta? Alam mo ba may chika ako sayo. Alam mo ba si...', //! Change later to variable from excel para latest
       unreadMessages: 1,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/pia.jpg',
     ),
     Message(
       sender: 'Mark',
       messageSnippet:
           'Hey Jeffrey! I\'ve received your query about the application for promotion ...', //! Change later to variable from excel para latest
       unreadMessages: 0,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/mark.jpg',
     ),
     Message(
       sender: 'Maine',
       messageSnippet:
           'Hi Jeff! Kumusta ka? Congrats pala! Pasensya na pero kakapalan ko na mukha ko ...', //! Change later to variable from excel para latest
       unreadMessages: 0,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/maine.jpg',
     ),
     Message(
       sender: 'Liana',
       messageSnippet:
           'Hi Jeffrey! We are happy to announce that you are qualified to receive ..', //! Change later to variable from excel para latest
       unreadMessages: 0,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/liana.jpg',
     ),
     Message(
       sender: 'Carlo',
       messageSnippet:
           'Hanggang sa dulo ng aking walang hanggan, hanggang maubos ang daan', //! Change later to variable from excel para latest
       unreadMessages: 0,
-      messageImageAddress: 'images/message/pjnf.jpg',
+      messageImageAddress: 'images/message/carlo.jpg',
     ),
     Message(
       sender: 'Maco',
       messageSnippet:
           'Hi Jeffy loves. I miss you like crazy.. Same place for our coffee date next week? ', //! Change later to variable from excel para latest
+      unreadMessages: 0,
+      messageImageAddress: 'images/message/maco.jpg',
+    ),
+    Message(
+      sender: 'Agon',
+      messageSnippet:
+          'Hi Jeffrey! We have received your application for the position...', //! Change later to variable from excel para latest
+      unreadMessages: 0,
+      messageImageAddress: 'images/message/pjnf.jpg',
+    ),
+    Message(
+      sender: 'Agon',
+      messageSnippet:
+          'Hi Jeffrey! We have received your application for the position...', //! Change later to variable from excel para latest
       unreadMessages: 0,
       messageImageAddress: 'images/message/pjnf.jpg',
     ),
@@ -110,5 +140,59 @@ class MessageDetails {
 
   String messageImageAddress(int index) {
     return messagesList[index].messageImageAddress;
+  }
+
+  void readMessage(String sender) {
+    final int index = messagesList.indexWhere((element) => element.sender == sender);
+    messagesList[index].unreadMessages = 0;
+  }
+}
+
+class DirectMessageDetails {
+  List<DirectMessageConversation> agonJeffrey = [
+    DirectMessageConversation(
+        sender: 'Jeffrey',
+        messages: 'Hi In Ah! Any updates regarding my application?',
+        messageNumber: 0,
+        date: DateTime(2022, 4, 12, 16, 4, 30, 0)),
+    DirectMessageConversation(
+      sender: 'Seol In Ah',
+      messages: 'Hi Jeffrey! Thank you for applying to our company Samsung Electromechanics Corp.',
+      messageNumber: 1,
+      date: DateTime(2022, 4, 12, 16, 5, 0, 0),
+    ),
+    DirectMessageConversation(
+        sender: 'Seol In Ah',
+        messages:
+            'First, we sincerely thank you for the time you have invested in the selection process, and we would like to update you regarding your application for: Process Design Engineer.',
+        messageNumber: 2,
+        date: DateTime(2022, 4, 12, 16, 6, 0, 0)),
+    DirectMessageConversation(
+        sender: 'Seol In Ah',
+        messages:
+            'You will hear from us within the next 30 days. In case you don\'t receive an answer from us by then, please return to your candidate home and check to see if any communications or tasks were sent there.',
+        messageNumber: 3,
+        date: DateTime(2022, 4, 12, 16, 6, 30, 0)),
+    DirectMessageConversation(
+        sender: 'Jeffrey',
+        messages:
+            "Greetings In Ah! I would like to follow up on my application. It's been a few weeks and I haven't received any updates. \nKind Regards, \nJeffrey Palcone.",
+        messageNumber: 4,
+        date: DateTime(2022, 5, 15, 16, 8, 30, 0)),
+    DirectMessageConversation(
+      sender: 'Seol In Ah',
+      messages:
+          'Hi Jeffrey! We have processed your application. \nCongratulations! You have been accepted for the position Process Design Engineer. Further discussion regarding your responsibilities will be conducted later at 3:00 pm.',
+      messageNumber: 5,
+      date: DateTime(2022, 5, 15, 16, 9, 02, 0),
+    ),
+    // DirectMessageConversation(sender: 'Agon', messages: 'Hi', messageNumber: 6),
+    // DirectMessageConversation(sender: 'Agon', messages: 'Hi', messageNumber: 7),
+    // DirectMessageConversation(sender: 'Agon', messages: 'Hi', messageNumber: 8),
+  ];
+
+  void sendMessage(String message) {
+    agonJeffrey.add(DirectMessageConversation(
+        sender: 'Jeffrey', messages: message, messageNumber: agonJeffrey.length + 1, date: DateTime.now()));
   }
 }

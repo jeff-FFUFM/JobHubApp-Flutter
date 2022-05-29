@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jobs_app/api/google_sheet_api.dart';
+import 'package:jobs_app/models/message.dart';
 import 'package:jobs_app/page_transitions/custom_page_route.dart';
 import 'package:jobs_app/screens/home_screen.dart';
 import 'package:jobs_app/screens/login_screen.dart';
@@ -40,6 +41,9 @@ class JobApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => NotificationSettings(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MessageDetails(),
         ),
       ],
       child: MaterialApp(

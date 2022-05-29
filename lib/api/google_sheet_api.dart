@@ -40,7 +40,6 @@ class GoogleSheetApi {
     }
     numberOfAccounts -= 1;
     print('Number of accounts: $numberOfAccounts');
-    //loadNOtes(); load notes for notepad ni mitchkoko
   }
 
   //Insert method
