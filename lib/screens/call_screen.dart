@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobs_app/constants/call_screen_constants.dart';
 
 class CallScreen extends StatefulWidget {
+  final String senderName;
   final String senderImageAddress;
   final String myImageAdress;
 
   const CallScreen({
     Key? key,
+    required this.senderName,
     required this.myImageAdress,
     required this.senderImageAddress,
   }) : super(key: key);
@@ -28,15 +31,16 @@ class _CallScreenState extends State<CallScreen> {
         fit: StackFit.expand,
         children: [
           Container(
+            //* default background
             color: Colors.black,
           ),
           Positioned.fill(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Image.asset(
                 isScreenSwapped
-                    ? (isCameraOn ? widget.myImageAdress : 'images/black.png')
+                    ? (isCameraOn ? widget.myImageAdress : Call.blackBackgroundImage)
                     : widget.senderImageAddress,
                 scale: 1,
                 fit: BoxFit.fitHeight,
@@ -56,7 +60,7 @@ class _CallScreenState extends State<CallScreen> {
                     image: AssetImage(
                       isScreenSwapped
                           ? widget.senderImageAddress
-                          : (isCameraOn ? widget.myImageAdress : 'images/black.png'),
+                          : (isCameraOn ? widget.myImageAdress : Call.blackBackgroundImage),
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -65,8 +69,6 @@ class _CallScreenState extends State<CallScreen> {
               ),
             ),
           ),
-
-          //! Replace later
           Positioned(
             top: 20,
             left: 15,
@@ -79,7 +81,7 @@ class _CallScreenState extends State<CallScreen> {
                 icon: const Icon(
                   Icons.chevron_left,
                   size: 50,
-                  color: Color(0xFF1A1D1E),
+                  color: Call.backIconColor,
                 ),
               ),
             ),
@@ -87,39 +89,15 @@ class _CallScreenState extends State<CallScreen> {
           Align(
             alignment: const Alignment(0, 0.261),
             child: Text(
-              isScreenSwapped ? 'My Screen' : 'Seol In Ah',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.7,
-                shadows: [
-                  // Shadow(
-                  //     color: Colors.blue.shade700.withOpacity(0.5), offset: Offset(0, -0.5), blurRadius: 20),
-                  Shadow(color: Colors.white38.withOpacity(0.7), offset: const Offset(0, 1), blurRadius: 20),
-                  Shadow(color: Colors.black.withOpacity(0.7), offset: const Offset(0, 1.5), blurRadius: 20),
-                ],
-              ),
+              isScreenSwapped ? Call.screenTextTitle : widget.senderName,
+              style: Call.titleTextStyle,
             ),
           ),
           Align(
             alignment: const Alignment(0, 0.320),
             child: Text(
-              '01:12',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.65,
-                shadows: [
-                  Shadow(
-                      color: Colors.blue.shade700.withOpacity(0.5),
-                      offset: const Offset(0, -0.5),
-                      blurRadius: 3),
-                  Shadow(color: Colors.white38.withOpacity(0.5), offset: const Offset(0, 1), blurRadius: 3),
-                  Shadow(color: Colors.black.withOpacity(0.5), offset: const Offset(0, 1.5), blurRadius: 3),
-                ],
-              ),
+              Call.timeText,
+              style: Call.timeTextStyle,
             ),
           ),
           GestureDetector(
@@ -132,9 +110,9 @@ class _CallScreenState extends State<CallScreen> {
               alignment: const Alignment(0.82, -0.67),
               child: CircleAvatar(
                 radius: 20,
-                backgroundColor: const Color(0xFFFF4A6B),
+                backgroundColor: Call.rotateCameraButtonColor,
                 child: SvgPicture.asset(
-                  'images/rotation.svg',
+                  Call.rotateImageSvg,
                   width: 20,
                 ),
               ),
@@ -153,11 +131,11 @@ class _CallScreenState extends State<CallScreen> {
                 backgroundColor: Colors.white,
                 child: isCameraOn
                     ? SvgPicture.asset(
-                        'images/camera.svg',
+                        Call.cameraOnImageSvg,
                         width: 22,
                       )
                     : Image.asset(
-                        'images/camera_off.png',
+                        Call.cameraOffImage,
                         width: 19,
                       ),
               ),
@@ -172,18 +150,17 @@ class _CallScreenState extends State<CallScreen> {
             child: Align(
               alignment: const Alignment(-0.535, 0.55),
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.white)),
+                decoration: Call.micBoxDecoration,
                 child: CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.transparent,
                   child: isSoundOn
                       ? SvgPicture.asset(
-                          'images/mic.svg',
+                          Call.micOnImageSvg,
                           width: 22,
                         )
                       : Image.asset(
-                          'images/mic_mute1.png',
+                          Call.micOffImageSvg,
                           width: 13,
                         ),
                 ),
@@ -194,7 +171,7 @@ class _CallScreenState extends State<CallScreen> {
             alignment: const Alignment(0, 0.55),
             child: CircleAvatar(
               radius: 25,
-              backgroundColor: const Color(0xFFFF4141),
+              backgroundColor: Call.endCallColor,
               child: SvgPicture.asset(
                 'images/end_call.svg',
                 width: 22,

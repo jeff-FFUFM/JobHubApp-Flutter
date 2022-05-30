@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jobs_app/constants/applications_screen_constants.dart';
+import 'package:jobs_app/constants/screen_constants.dart';
 
 class ApplicationsScreen extends StatelessWidget {
   const ApplicationsScreen({Key? key}) : super(key: key);
@@ -7,7 +9,7 @@ class ApplicationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFFFBFBFB),
+        color: Application.backgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -19,8 +21,7 @@ class ApplicationsScreen extends StatelessWidget {
                   onPressed: () {
                     //* Default method for page transition
                     Navigator.pop(context);
-
-                    Navigator.pushNamed(context, '/Menu');
+                    Navigator.pushNamed(context, routeToMenu);
                   },
                   icon: const Icon(
                     Icons.chevron_left,
@@ -64,8 +65,8 @@ class ApplicationsScreen extends StatelessWidget {
               height: 300,
               child: ListView.builder(
                 padding: const EdgeInsets.only(bottom: 0),
-                itemCount: 2,
-                itemBuilder: (context, index) => Container(
+                itemCount: 2, //!edit dynamic
+                itemBuilder: (context, index) => SizedBox(
                   width: MediaQuery.of(context).size.width * 0.85,
                   height: 80,
                 ),

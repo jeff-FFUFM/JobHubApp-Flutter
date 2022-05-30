@@ -7,6 +7,7 @@ class JobPost {
   List<String> jobDescription;
   List<String> companyDetails;
   List<String> reviews;
+  String jobType;
 
   JobPost({
     required this.imageAddress,
@@ -17,6 +18,7 @@ class JobPost {
     required this.jobDescription,
     required this.companyDetails,
     required this.reviews,
+    required this.jobType,
   });
 }
 

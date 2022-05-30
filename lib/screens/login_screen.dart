@@ -140,51 +140,69 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    final user = User(email: _email.text, password: _password.text);
+                    _password.clear();
+                    if (UserList().verifyUser(user)) {
+                      print('Login Successful');
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Login Status'),
+                              content: const Text(
+                                'Login Successful! Proceeding to Home Page',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('OK'),
+                                )
+                              ],
+                            );
+                          });
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/Home');
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Login Status'),
+                              content: const Text(
+                                'Email/Password did not match. Please try again.',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('OK'),
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
                   child: Container(
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width,
                     height: 48,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: const Color(0xFF4CA6A8),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: GestureDetector(
-                      onTap: () {
-                        final user = User(email: _email.text, password: _password.text);
-                        _password.clear();
-                        if (UserList().verifyUser(user)) {
-                          print('Login Successful');
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Login Status'),
-                                  content: const Text(
-                                    'Login Successful! Proceeding to Home Page',
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        Navigator.pushNamed(context, '/Home');
-                                      },
-                                      child: const Text('OK'),
-                                    )
-                                  ],
-                                );
-                              });
-                        }
-                      },
-                      child: const Text(
-                        'LOG IN',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15.5,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
+                    child: const Text(
+                      'LOG IN',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -192,7 +210,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 38.19),
                 const Align(
                   alignment: Alignment.center,
-                  child: Text('-- Or Continue With --'), //! Edit this
+                  child: Text(
+                    '- Or Continue With -',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF6A6A6A),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 28.65),
                 Row(
@@ -225,11 +250,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: RichText(
                       text: TextSpan(
                     text: 'New User? ',
-                    style: const TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Poppins'),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF6A6A6A),
+                      shadows: [
+                        Shadow(color: Colors.black, offset: Offset(0.12, 0.12), blurRadius: 0.12),
+                      ],
+                    ),
                     children: [
                       TextSpan(
                         text: 'Create Account',
-                        style: const TextStyle(fontWeight: FontWeight.w800),
+                        style: const TextStyle(color: Colors.black),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             Navigator.pop(context);

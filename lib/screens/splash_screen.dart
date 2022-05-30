@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobs_app/constants/constants.dart';
+import 'package:jobs_app/constants/splash_constants.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -10,15 +10,15 @@ class SplashScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            width: double.infinity,
-            height: double.infinity,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             color: const Color(0xFFE5E5E5),
           ),
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/splash4.png'),
+                  image: AssetImage(Splash.backgroundImage),
                 ),
               ),
             ),
@@ -27,8 +27,8 @@ class SplashScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(top: 240),
               child: const Text(
-                'Find a Perfect \nJob Match',
-                style: splashJobMatchTextStyle,
+                Splash.title,
+                style: Splash.jobMatchTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -37,9 +37,8 @@ class SplashScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(top: 380),
               child: const Text(
-                'Finding your dream job is much easier\n'
-                'and faster with JobHub',
-                style: splashFindingTextStyle,
+                Splash.subtitle,
+                style: Splash.subtitleTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -51,27 +50,27 @@ class SplashScreen extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/Login');
                 await Future.delayed(const Duration(milliseconds: 500));
-                //GoogleSheetApi.countAccountRows(); testing
               },
               child: Container(
                 height: 50,
                 width: 241.67,
-                decoration:
-                    BoxDecoration(color: const Color(0xFF4CA6A8), borderRadius: BorderRadius.circular(11)),
+                decoration: Splash.textButtonDecoration,
                 margin: const EdgeInsets.only(top: 530),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Let's Get Started",
-                        style: splashButtonTextStyle,
+                        Splash.buttonText,
+                        style: Splash.buttonTextStyle,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
                         width: 12,
                       ),
-                      Image.asset('images/arrow_right.png'),
+                      Image.asset(
+                        Splash.arrowImage,
+                      ),
                     ],
                   ),
                 ),
@@ -83,7 +82,3 @@ class SplashScreen extends StatelessWidget {
     );
   }
 }
-
-// Todo2: Check if can change for dark mode later on: can't too late
-
-//* ERROR, upon rambo click sa first page, kahit di tamaan yung button, lumilipat!!  Solved using Gesture Detector
