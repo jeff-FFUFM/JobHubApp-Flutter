@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobs_app/constants/register_screen_constants.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -13,6 +14,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   bool obscurePasswordField = true;
+
+  void textFieldUnfocus() {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
 
   @override
   void initState() {
@@ -59,16 +68,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Register Account',
-                      style: TextStyle(
-                        fontFamily: 'PoppinsSemiBold',
-                        fontSize: 29,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1A1D1E),
-                      ),
+                    Text(
+                      Register.registerLabel,
+                      style: Register.registerLabelTextStyle,
                     ),
-                    const Text('Fill your details or continue with social media'), //! Edit this
+                    Text(
+                      Register.fillDetailsLabel,
+                      style: Register.fillDetailsLabelTextStyle,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -87,13 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: _username,
                               autocorrect: false,
                               keyboardType: TextInputType.name,
-                              onTap: () {
-                                FocusScopeNode currentFocus = FocusScope.of(context);
-
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                              },
+                              onTap: textFieldUnfocus,
                               decoration: const InputDecoration(
                                 hintText: 'Username',
                                 hintStyle: TextStyle(fontSize: 16),
@@ -126,13 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               enableSuggestions: false,
                               autocorrect: false,
                               keyboardType: TextInputType.emailAddress,
-                              onTap: () {
-                                FocusScopeNode currentFocus = FocusScope.of(context);
-
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                              },
+                              onTap: textFieldUnfocus,
                               decoration: const InputDecoration(
                                 hintText: 'Email Address',
                                 hintStyle: TextStyle(fontSize: 16),
@@ -157,13 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: MediaQuery.of(context).size.width * 0.52,
                             child: TextField(
                               controller: _password,
-                              onTap: () {
-                                FocusScopeNode currentFocus = FocusScope.of(context);
-
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                              },
+                              onTap: textFieldUnfocus,
                               decoration: const InputDecoration(
                                 hintText: 'Password',
                                 hintStyle: TextStyle(fontSize: 16),
@@ -191,15 +180,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          //Todo3
+                          // Todo
                         },
-                        child: const Text('Forgot Password'),
+                        child: Text(
+                          'Forgot Password',
+                          style: Register.forgotPassTextStyle,
+                        ),
                       ),
                     ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
-                        width: double.infinity,
+                        width: MediaQuery.of(context).size.width,
                         height: 48,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -218,9 +210,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     const SizedBox(height: 38.19),
-                    const Align(
+                    Align(
                       alignment: Alignment.center,
-                      child: Text('-- Or Continue With --'), //! Edit this
+                      child: Text('- Or Continue With -', style: Register.continueTextStyle),
                     ),
                     const SizedBox(height: 28.65),
                     Row(
@@ -229,20 +221,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Container(
                           width: 60,
                           height: 60,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE9F4FF),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Image.asset('images/google_logo.png'),
+                          decoration: Register.googleBoxDecoration,
+                          child: Image.asset(Register.googleImage),
                         ),
                         const SizedBox(width: 20),
                         Container(
                           width: 60,
                           height: 60,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4460A0),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                          decoration: Register.facebookBoxDecoration,
                           child: Image.asset('images/facebook_logo.png'),
                         )
                       ],

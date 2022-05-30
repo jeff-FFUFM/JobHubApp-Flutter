@@ -20,7 +20,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void toApplyPage() {
     Navigator.pop(context);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const JobForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const JobForm(),
+      ),
+    );
   }
 
   @override
@@ -46,7 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 18, left: 20.79, right: 8),
+                padding: const EdgeInsets.only(
+                  top: 18,
+                  left: 20.79,
+                  right: 8,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -68,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+
               const SizedBox(
                 height: 10,
               ),
@@ -80,13 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width * 0.6773,
                       height: MediaQuery.of(context).size.height * 0.0660,
                       padding: const EdgeInsets.only(left: 18),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xFFDBDBDB), offset: Offset(0.12, 0.12), blurRadius: 0.2),
-                        ],
-                      ),
+                      decoration: Home.textFieldBoxDecoration,
                       child: TextField(
                         autofocus: false,
                         decoration: const InputDecoration(
@@ -107,7 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 18.65, left: 20.79, right: 22),
+                padding: const EdgeInsets.only(
+                  top: 18.65,
+                  left: 20.79,
+                  right: 22,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,7 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     right: 10,
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(14),
+                                    borderRadius: BorderRadius.circular(
+                                      14,
+                                    ),
                                     child: Image.asset(
                                       jposts.imageAddress,
                                       scale: 8,
@@ -165,21 +175,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5, bottom: 9.5),
+                                  padding: const EdgeInsets.only(
+                                    left: 5,
+                                    bottom: 9.5,
+                                  ),
                                   child: Text(
                                     jposts.companyName,
                                     style: Home.jpostsCompanyNameTextStyle,
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5, bottom: 6.5),
+                                  padding: const EdgeInsets.only(
+                                    left: 5,
+                                    bottom: 6.5,
+                                  ),
                                   child: Text(
                                     jposts.jobTitle,
                                     style: Home.jpostsTitleTextStyle,
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 5),
+                                  padding: const EdgeInsets.only(
+                                    left: 5,
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
@@ -239,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.2816,
+                height: MediaQuery.of(context).size.height * 0.3016,
                 padding: const EdgeInsets.symmetric(horizontal: 20.79),
                 child: ListView.separated(
                   scrollDirection: Axis.vertical,
@@ -271,8 +289,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   scale: 5.2,
                                 ),
                               ),
-                            ), //!edit
-                            const SizedBox(width: 15),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,

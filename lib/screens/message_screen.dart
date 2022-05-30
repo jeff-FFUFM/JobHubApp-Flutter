@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:jobs_app/models/message.dart';
-import 'package:jobs_app/screens/direct_message_screen.dart';
+import 'package:jobs_app/constants/all_screen_constants.dart';
+import 'package:jobs_app/constants/message_screen_constants.dart';
+import 'package:jobs_app/state_files/message_details.dart';
 import 'package:jobs_app/state_files/page_data.dart';
 import 'package:jobs_app/widgets/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -32,11 +33,11 @@ class _MessageScreenState extends State<MessageScreen> {
                 child: IconButton(
                   onPressed: () async {
                     Navigator.pop(context);
-                    Provider.of<PageData>(context, listen: false).moveMarkerTo('/Home');
+                    Provider.of<PageData>(context, listen: false).moveMarkerTo(routeToHomeScreen);
                     Future.delayed(
                       const Duration(milliseconds: 300),
                     );
-                    await Navigator.pushNamed(context, '/Home');
+                    await Navigator.pushNamed(context, routeToHomeScreen);
                   },
                   icon: const Icon(
                     Icons.chevron_left,
@@ -44,9 +45,9 @@ class _MessageScreenState extends State<MessageScreen> {
                   ),
                 ),
               ),
-              const Text(
-                'Messages',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              Text(
+                Message.messagesLabel,
+                style: Message.messagesTextStyle,
               ),
               const Padding(
                 padding: EdgeInsets.only(right: 18.0),
@@ -81,29 +82,23 @@ class _MessageScreenState extends State<MessageScreen> {
                           onDismissed: () {
                             setState(() {
                               messagesList.removeAt(index);
-                              //print('Messages Length: ${messagesList.length}');
                             });
                           },
                         ),
                         children: [
                           Expanded(
-                            flex: 1,
                             child: Container(
-                              padding: const EdgeInsets.only(top: 11, right: 35, bottom: 11, left: 10),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(13),
-                                  bottomLeft: Radius.circular(13),
-                                ),
-                                color: Color(0xFFFF4141),
+                              padding: const EdgeInsets.only(
+                                top: 11,
+                                right: 35,
+                                bottom: 11,
+                                left: 10,
                               ),
+                              decoration: Message.deleteContainerDecoration,
                               child: GestureDetector(
-                                //Todo: DELETE MESSAGE FROM LIST
-
                                 onTap: () {
                                   setState(() {
                                     messagesList.removeAt(index);
-                                    //print('Messages Length using Gesture: ${messagesList.length}');
                                   });
                                 },
                                 child: const Icon(Icons.delete_outline_rounded),
@@ -117,8 +112,7 @@ class _MessageScreenState extends State<MessageScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  DirectMessageScreen(message: MessageDetails().messagesList[index]),
+                              builder: (context) => DirectMessageScreen(message: messagesList[index]),
                             ),
                           );
                           setState(() {
@@ -127,12 +121,7 @@ class _MessageScreenState extends State<MessageScreen> {
                         },
                         child: Container(
                           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 17),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(color: Color(0xFFEBEBEB), offset: Offset(0, -0.05), blurRadius: 0.01)
-                            ],
-                          ),
+                          decoration: Message.chatContainerDecoration,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -141,7 +130,9 @@ class _MessageScreenState extends State<MessageScreen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 20,
-                                    backgroundImage: AssetImage(MessageDetails().messageImageAddress(index)),
+                                    backgroundImage: AssetImage(
+                                      MessageDetails().messageImageAddress(index),
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 25,
@@ -151,28 +142,22 @@ class _MessageScreenState extends State<MessageScreen> {
                                     children: [
                                       Text(
                                         MessageDetails().messageName(index),
-                                        style: const TextStyle(
-                                          fontFamily: 'PoppinsSemiBold',
-                                          fontSize: 16,
-                                          color: Color(0xFF1A1D1E),
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                        style: Message.senderNameTextStyle,
                                       ),
                                       Text(MessageDetails().messageSnippet(index)),
                                     ],
                                   ),
                                 ],
                               ),
-                              messageManager.messagesList[index].unreadMessages == 0
-                                  ? Container()
-                                  : CircleAvatar(
-                                      radius: 10,
-                                      child: Text(
-                                        MessageDetails().noOfUnreadMessage(index),
-                                        style: const TextStyle(fontSize: 12, color: Colors.white),
-                                      ),
-                                      backgroundColor: const Color(0xFF4CA6A8),
-                                    ),
+                              if (messageManager.messagesList[index].unreadMessages != 0)
+                                CircleAvatar(
+                                  radius: 10,
+                                  child: Text(
+                                    MessageDetails().noOfUnreadMessage(index),
+                                    style: Message.unreadMessageTextStyle,
+                                  ),
+                                  backgroundColor: const Color(0xFF4CA6A8),
+                                ),
                             ],
                           ),
                         ),

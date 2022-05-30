@@ -76,4 +76,12 @@ class Home {
     fontWeight: FontWeight.w500,
     color: Color(0xFF6A6A6A),
   );
+
+  static BoxDecoration textFieldBoxDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(15),
+    boxShadow: const [
+      BoxShadow(color: Color(0xFFDBDBDB), offset: Offset(0.12, 0.12), blurRadius: 0.2),
+    ],
+  );
 }

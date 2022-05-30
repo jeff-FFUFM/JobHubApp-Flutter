@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobs_app/constants/direct_message_constants.dart';
+import 'package:jobs_app/models/direct_message_details.dart';
 import 'package:jobs_app/models/message.dart';
 import 'package:jobs_app/screens/call_screen.dart';
 import 'package:jobs_app/state_files/page_data.dart';

@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobs_app/state_files/user_data.dart';
+import 'package:jobs_app/constants/login_screen_constants.dart';
+import 'package:jobs_app/models/user.dart';
+import 'package:jobs_app/state_files/users_data.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   bool obscurePasswordField = true;
+
+  void textFieldUnfocus() {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
 
   @override
   void initState() {
@@ -43,15 +54,14 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                    fontFamily: 'PoppinsBold',
-                    fontSize: 28,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Text(
+                  Login.welcomeLabel,
+                  style: Login.welcomeLabelTextStyle,
                 ),
-                const Text('Fill your details or continue with social media'), //! Edit this
+                Text(
+                  Login.fillDetailsLabel,
+                  style: Login.fillDetailsLabelTextStyle,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -62,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         width: 18,
                       ),
-                      SvgPicture.asset('images/message.svg'),
+                      SvgPicture.asset(Login.messageImageSvg),
                       const SizedBox(width: 10),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.65,
@@ -71,18 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           keyboardType: TextInputType.emailAddress,
-                          onTap: () {
-                            FocusScopeNode currentFocus = FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'Email Address',
-                            hintStyle: TextStyle(fontSize: 16),
-                            border: InputBorder.none,
-                          ),
+                          onTap: textFieldUnfocus,
+                          decoration: Login.emailInputDecoration,
                         ),
                       ),
                     ],
@@ -96,24 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         width: 18,
                       ),
-                      SvgPicture.asset('images/padlock.svg'),
+                      SvgPicture.asset(Login.lockImageSvg),
                       const SizedBox(width: 10),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.52,
                         child: TextField(
                           controller: _password,
-                          onTap: () {
-                            FocusScopeNode currentFocus = FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: TextStyle(fontSize: 16),
-                            border: InputBorder.none,
-                          ),
+                          onTap: textFieldUnfocus,
+                          decoration: Login.passwordInputDecoration,
                           obscureText: obscurePasswordField ? true : false,
                           enableSuggestions: false,
                           autocorrect: false,
@@ -126,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                         child: SvgPicture.asset(
-                          'images/eyeclose.svg',
+                          Login.eyeCloseImageSvg,
                         ),
                       ),
                     ],
@@ -136,15 +126,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text('Forgot Password'),
+                    child: Text(
+                      Login.forgotPassLabel,
+                      style: Login.forgotPassTextStyle,
+                    ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final user = User(email: _email.text, password: _password.text);
+                    final user = User(email: _email.text, password: _password.text, name: '');
                     _password.clear();
-                    if (UserList().verifyUser(user)) {
-                      print('Login Successful');
+                    if (Provider.of<UsersData>(context, listen: false).verifyUser(user)) {
+                      Provider.of<UsersData>(context, listen: false).updateName(user);
+                      //print('Login Successful');
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -196,27 +190,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: const Color(0xFF4CA6A8),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Text(
-                      'LOG IN',
+                    child: Text(
+                      Login.loginLabel,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+                      style: Login.loginTextStyle,
                     ),
                   ),
                 ),
                 const SizedBox(height: 38.19),
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Text(
-                    '- Or Continue With -',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF6A6A6A),
-                    ),
+                    Login.continueLabel,
+                    style: Login.continueTextStyle,
                   ),
                 ),
                 const SizedBox(height: 28.65),
@@ -226,21 +212,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       width: 60,
                       height: 60,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE9F4FF),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Image.asset('images/google_logo.png'),
+                      decoration: Login.googleBoxDecoration,
+                      child: Image.asset(Login.googleImage),
                     ),
                     const SizedBox(width: 20),
                     Container(
                       width: 60,
                       height: 60,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4460A0),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Image.asset('images/facebook_logo.png'),
+                      decoration: Login.facebookBoxDecoration,
+                      child: Image.asset(Login.facebookImage),
                     )
                   ],
                 ),
@@ -249,19 +229,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.center,
                   child: RichText(
                       text: TextSpan(
-                    text: 'New User? ',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF6A6A6A),
-                      shadows: [
-                        Shadow(color: Colors.black, offset: Offset(0.12, 0.12), blurRadius: 0.12),
-                      ],
-                    ),
+                    text: Login.newUserLabel,
+                    style: Login.newUserTextStyle,
                     children: [
                       TextSpan(
-                        text: 'Create Account',
-                        style: const TextStyle(color: Colors.black),
+                        text: Login.createAccountLabel,
+                        style: Login.createAcctTextStyle,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             Navigator.pop(context);

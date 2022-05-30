@@ -10,14 +10,14 @@ class DirectMessage {
   static const String sendButtonImageSvg = 'images/send_button.svg';
   static const Color addButtonColor = Color(0xFF4CA6A8);
 
-  static TextStyle senderTextStyle = TextStyle(
+  static TextStyle senderTextStyle = const TextStyle(
     fontFamily: 'Poppins',
     fontSize: 16,
     color: Color(0xFF1A1D1E),
     fontWeight: FontWeight.w600,
   );
 
-  static TextStyle messagesTextStyle = TextStyle(
+  static TextStyle messagesTextStyle = const TextStyle(
     color: Color(0xFF1A1D1E),
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -27,7 +27,7 @@ class DirectMessage {
     ],
   );
 
-  static TextStyle dateTextStyle = TextStyle(
+  static TextStyle dateTextStyle = const TextStyle(
     color: Color(0xFF002251),
     fontSize: 12,
     fontWeight: FontWeight.w300,
@@ -46,7 +46,7 @@ class DirectMessage {
     borderRadius: BorderRadius.circular(11),
   );
 
-  static InputDecoration textFieldDecoration = InputDecoration(
+  static InputDecoration textFieldDecoration = const InputDecoration(
     hintText: 'Type a message',
     hintStyle: TextStyle(
       fontSize: 14,

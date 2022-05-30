@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobs_app/constants/applications_screen_constants.dart';
-import 'package:jobs_app/constants/screen_constants.dart';
+import 'package:jobs_app/constants/all_screen_constants.dart';
 
 class ApplicationsScreen extends StatelessWidget {
   const ApplicationsScreen({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class ApplicationsScreen extends StatelessWidget {
                   onPressed: () {
                     //* Default method for page transition
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, routeToMenu);
+                    Navigator.pushNamed(context, routeToMenuScreen);
                   },
                   icon: const Icon(
                     Icons.chevron_left,

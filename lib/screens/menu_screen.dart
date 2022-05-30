@@ -1,136 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobs_app/screens/applications_screen.dart';
-import 'package:jobs_app/screens/edit_profile_screen.dart';
-import 'package:jobs_app/screens/settings_screen.dart';
+import 'package:jobs_app/constants/all_screen_constants.dart';
+import 'package:jobs_app/state_files/users_data.dart';
+import 'package:provider/provider.dart';
+import 'package:jobs_app/widgets/menu_row_widget.dart';
+import 'package:jobs_app/constants/menu_screen_constants.dart';
 
 class MenuScreen extends StatelessWidget {
+  final myImageAddress = 'images/jeff.png';
   const MenuScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userManager = Provider.of<UsersData>(context);
+    final index = userManager.index;
     return Scaffold(
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 80),
+            const SizedBox(
+              height: 80,
+            ),
             Container(
               padding: const EdgeInsets.only(right: 250),
               child: Image.asset(
-                'images/jeff.png',
+                myImageAddress,
                 scale: 5,
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(
+              height: 5,
+            ),
             Container(
               padding: const EdgeInsets.only(left: 30),
-              child: const Text(
-                'Jeffrey Palcone',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF1A1D1E),
-                  shadows: [
-                    Shadow(color: Colors.black, offset: Offset(0.2, 0.2), blurRadius: 0.2),
-                    Shadow(color: Color(0xFF131D25), offset: Offset(0.2, 0.2), blurRadius: 0.2),
-                  ],
-                ),
+              child: Text(
+                userManager.name,
+                style: Menu.nameTextStyle,
               ),
             ),
             Container(
               padding: const EdgeInsets.only(left: 30),
-              child: const Text(
-                'jeffreypalcone@yahoo.com',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14.5,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF6A6A6A),
-                  shadows: [
-                    Shadow(color: Colors.grey, offset: Offset(0.2, 0.2), blurRadius: 0.2),
-                    Shadow(color: Color(0xFF6A6A6A), offset: Offset(0.2, 0.2), blurRadius: 0.2),
-                  ],
-                ),
+              child: Text(
+                userManager.users[index].email,
+                style: Menu.emailTextStyle,
               ),
             ),
             const SizedBox(height: 40),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfileScreen()));
-                },
-                child: const MenuRowWidget(title: 'Edit Profile', imageAddress: 'images/menu_user.svg')),
-            const SizedBox(height: 28),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditProfileScreen(),
+                ),
+              ),
+              child: const MenuRowWidget(
+                title: Menu.editProfileLabel,
+                imageAddress: Menu.menuImage,
+              ),
+            ),
+            const SizedBox(
+              height: 28,
+            ),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const ApplicationsScreen()));
-                },
-                child: const MenuRowWidget(title: 'Applications', imageAddress: 'images/menu_history.svg')),
-            const SizedBox(height: 28),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ApplicationsScreen(),
+                ),
+              ),
+              child: const MenuRowWidget(
+                title: Menu.applicationLabel,
+                imageAddress: Menu.historyImage,
+              ),
+            ),
+            const SizedBox(
+              height: 28,
+            ),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-                },
-                child: const MenuRowWidget(
-                    title: 'Notification Settings', imageAddress: 'images/menu_settings.svg')),
-            const SizedBox(height: 28),
-            const MenuRowWidget(title: 'Share App', imageAddress: 'images/menu_heart.svg'),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              ),
+              child: const MenuRowWidget(
+                title: Menu.settingsLabel,
+                imageAddress: Menu.settingsImageSvg,
+              ),
+            ),
+            const SizedBox(
+              height: 28,
+            ),
+            const MenuRowWidget(
+              title: Menu.shareAppLabel,
+              imageAddress: Menu.heartImageSvg,
+            ),
             const SizedBox(
               height: 75,
             ),
             GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/Splash');
-                },
-                child: const MenuRowWidget(title: 'Log Out', imageAddress: 'images/menu_logout.svg')),
+              onTap: () => Navigator.pushNamed(context, routeToSplashScreen),
+              child: const MenuRowWidget(
+                title: Menu.logoutLabel,
+                imageAddress: Menu.logoutImageSvg,
+              ),
+            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MenuRowWidget extends StatelessWidget {
-  final String title;
-  final String imageAddress;
-
-  const MenuRowWidget({
-    Key? key,
-    required this.title,
-    required this.imageAddress,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 30),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            child: SvgPicture.asset(
-              imageAddress,
-              fit: BoxFit.contain,
-              width: 48,
-            ),
-          ),
-          const SizedBox(width: 15),
-          Text(
-            title,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 19,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF1A1D1E),
-              shadows: [
-                Shadow(color: Color(0xFF131D25), offset: Offset(0.12, 0.12), blurRadius: 0.1),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
