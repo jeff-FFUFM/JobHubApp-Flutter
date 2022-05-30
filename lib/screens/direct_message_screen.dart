@@ -54,10 +54,10 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
         resizeToAvoidBottomInset: false,
         body: Center(
           child: Container(
-            color: Color(0xFFFBFBFB),
+            color: const Color(0xFFFBFBFB),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
                 Row(
@@ -68,24 +68,24 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                         Provider.of<PageData>(context, listen: false).moveMarkerTo('/Message');
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                     CircleAvatar(
                       radius: 18,
                       backgroundImage: AssetImage(widget.message.messageImageAddress),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     Text(
                       widget.message.sender,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 16,
                         color: Color(0xFF1A1D1E),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -96,20 +96,20 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                                     senderImageAddress: 'images/people/seol.png')));
                       },
                       iconSize: 30,
-                      icon: Icon(Icons.call),
-                      color: Color(0xFF200E32),
+                      icon: const Icon(Icons.call),
+                      color: const Color(0xFF200E32),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 3),
+                  padding: const EdgeInsets.only(top: 3),
                   height: listViewHeight,
                   child: ListView.separated(
                     reverse: true,
-                    padding: EdgeInsets.only(bottom: 0),
+                    padding: const EdgeInsets.only(bottom: 0),
                     shrinkWrap: true,
                     itemCount: widget.dm.agonJeffrey.length,
                     itemBuilder: (context, index) {
@@ -124,10 +124,12 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                               borderRadius: BorderRadius.circular(11),
                               child: Container(
                                 width: 250,
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 11),
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 11),
                                 decoration: BoxDecoration(
-                                  color: isUser ? Color(0xFF4CA6A8).withOpacity(0.1) : Color(0xFFFEFEFE),
+                                  color: isUser
+                                      ? const Color(0xFF4CA6A8).withOpacity(0.1)
+                                      : const Color(0xFFFEFEFE),
                                   borderRadius: BorderRadius.circular(11),
                                 ),
                                 child: Column(
@@ -137,7 +139,7 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                                       child: Text(
                                         messageAgonJeffrey.messages,
                                         overflow: TextOverflow.clip,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Color(0xFF1A1D1E),
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
@@ -155,11 +157,11 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                                       ),
                                     ),
                                     Align(
-                                      alignment: Alignment(1, 0),
+                                      alignment: const Alignment(1, 0),
                                       child: Text(
                                         DateFormat.jm().format(messageAgonJeffrey.date).toString(),
                                         textAlign: TextAlign.end,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Color(0xFF002251),
                                           fontSize: 12,
                                           fontWeight: FontWeight.w300,
@@ -183,20 +185,20 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) => SizedBox(
+                    separatorBuilder: (context, index) => const SizedBox(
                       height: 10,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20, bottom: 60),
+                  padding: const EdgeInsets.only(left: 20, bottom: 60),
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
                         child: CircleAvatar(
                           backgroundColor: Color(0xFF4CA6A8),
                           radius: 24,
@@ -207,13 +209,13 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Container(
                         alignment: Alignment.center,
                         child: Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(right: 20, left: 12),
+                              padding: const EdgeInsets.only(right: 20, left: 12),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(11),
@@ -223,7 +225,7 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                                 controller: _message,
                                 keyboardType: TextInputType.text,
                                 autofocus: false,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Type a message',
                                   hintStyle: TextStyle(
                                     fontSize: 14,
@@ -239,7 +241,7 @@ class _DirectMessageScreenState extends State<DirectMessageScreen> {
                                 },
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             GestureDetector(
                               onTap: () {
                                 //Todo: Method for adding message

@@ -5,12 +5,12 @@ import 'package:jobs_app/models/message.dart';
 import 'package:jobs_app/page_transitions/custom_page_route.dart';
 import 'package:jobs_app/screens/home_screen.dart';
 import 'package:jobs_app/screens/login_screen.dart';
+import 'package:jobs_app/screens/menu_screen.dart';
 import 'package:jobs_app/screens/profile_screen.dart';
 import 'package:jobs_app/screens/register_screen.dart';
 import 'package:jobs_app/screens/settings_screen.dart';
 import 'package:jobs_app/screens/splash_screen.dart';
 import 'package:jobs_app/screens/message_screen.dart';
-import 'package:jobs_app/models/home_screen_tab.dart';
 import 'package:jobs_app/state_files/notification_settings.dart';
 import 'package:provider/provider.dart';
 import 'package:jobs_app/state_files/page_data.dart';
@@ -72,9 +72,12 @@ Route<dynamic> routeGenerator(RouteSettings settings) {
     case '/Profile':
       return CustomPageRoute(child: const ProfileScreen());
     case '/Settings':
-      return CustomPageRoute(child: SettingsScreen());
+      return CustomPageRoute(child: const SettingsScreen());
+    case '/Menu':
+      return CustomPageRoute(child: const MenuScreen());
 
     default:
-      return CustomPageRoute(child: const HomeScreen()); //!!change later to splash Screen
+      return CustomPageRoute(child: const SplashScreen());
+    //!!change later to splash Screen
   }
 }

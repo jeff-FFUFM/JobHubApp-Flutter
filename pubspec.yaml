@@ -70,6 +70,7 @@ flutter:
     - images/message_icons/
     - images/message/
     - images/people/
+    - images/countries/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

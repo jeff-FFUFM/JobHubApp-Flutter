@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jobs_app/api/google_sheet_api.dart';
 import 'package:jobs_app/constants/constants.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -85,6 +84,6 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-// Todo2: Check if can change for dark mode later on
+// Todo2: Check if can change for dark mode later on: can't too late
 
 //* ERROR, upon rambo click sa first page, kahit di tamaan yung button, lumilipat!!  Solved using Gesture Detector

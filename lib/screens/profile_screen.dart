@@ -36,9 +36,9 @@ class ProfileScreen extends StatelessWidget {
                     color: Color(0xFF1A1D1E),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 9.5),
-                  child: const Text(
+                  child: Text(
                     'Profile',
                     style: TextStyle(
                       fontSize: 20,

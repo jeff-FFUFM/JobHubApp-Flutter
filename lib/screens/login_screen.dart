@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobs_app/models/message.dart';
+import 'package:jobs_app/state_files/user_data.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -149,13 +149,42 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: const Color(0xFF4CA6A8),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Text(
-                      'LOG IN',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                    child: GestureDetector(
+                      onTap: () {
+                        final user = User(email: _email.text, password: _password.text);
+                        _password.clear();
+                        if (UserList().verifyUser(user)) {
+                          print('Login Successful');
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Login Status'),
+                                  content: const Text(
+                                    'Login Successful! Proceeding to Home Page',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        Navigator.pushNamed(context, '/Home');
+                                      },
+                                      child: const Text('OK'),
+                                    )
+                                  ],
+                                );
+                              });
+                        }
+                      },
+                      child: const Text(
+                        'LOG IN',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15.5,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

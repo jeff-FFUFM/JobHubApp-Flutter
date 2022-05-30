@@ -39,7 +39,7 @@ class GoogleSheetApi {
       numberOfAccounts += 1;
     }
     numberOfAccounts -= 1;
-    print('Number of accounts: $numberOfAccounts');
+    //print('Number of accounts: $numberOfAccounts');
   }
 
   //Insert method

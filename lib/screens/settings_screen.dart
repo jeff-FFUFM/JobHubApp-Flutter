@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobs_app/state_files/notification_settings.dart';
 import 'package:jobs_app/state_files/page_data.dart';
-import 'package:jobs_app/widgets/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -17,7 +15,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settingsManager = Provider.of<NotificationSettings>(context);
-    bool newPost = Provider.of<NotificationSettings>(context).newPostSwitch;
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -133,7 +130,7 @@ class NotificationSettingsRow extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0, top: 38),
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   color: Color(0xFF1A1D1E),
                   fontWeight: FontWeight.w500,
@@ -147,7 +144,7 @@ class NotificationSettingsRow extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 description,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 11,
                   color: Color(0xFF6A6A6A),
                   fontWeight: FontWeight.w400,
@@ -161,12 +158,12 @@ class NotificationSettingsRow extends StatelessWidget {
         ),
         Container(
           alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 15, top: 35),
+          padding: const EdgeInsets.only(right: 15, top: 35),
           child: Transform.scale(
             scale: 0.8,
             child: CupertinoSwitch(
-              activeColor: Color(0xFF4CA6A8),
-              thumbColor: Color(0xFFE9E9E9),
+              activeColor: const Color(0xFF4CA6A8),
+              thumbColor: const Color(0xFFE9E9E9),
               value: isOn,
               onChanged: onPressed,
             ),

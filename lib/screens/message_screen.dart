@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:jobs_app/models/message.dart';
@@ -64,10 +63,10 @@ class _MessageScreenState extends State<MessageScreen> {
                 alignment: Alignment.center,
                 height: 560,
                 width: 392,
-                color: Color(0xFFFBFBFB),
-                padding: EdgeInsets.only(top: 7),
+                color: const Color(0xFFFBFBFB),
+                padding: const EdgeInsets.only(top: 7),
                 child: ListView.builder(
-                  padding: EdgeInsets.only(bottom: 0),
+                  padding: const EdgeInsets.only(bottom: 0),
                   itemCount: MessageDetails().messagesList.length,
                   itemBuilder: (context, index) {
                     final messageAtIndex = messagesList[index];
@@ -82,7 +81,7 @@ class _MessageScreenState extends State<MessageScreen> {
                           onDismissed: () {
                             setState(() {
                               messagesList.removeAt(index);
-                              print('Messages Length: ${messagesList.length}');
+                              //print('Messages Length: ${messagesList.length}');
                             });
                           },
                         ),
@@ -104,10 +103,10 @@ class _MessageScreenState extends State<MessageScreen> {
                                 onTap: () {
                                   setState(() {
                                     messagesList.removeAt(index);
-                                    print('Messages Length using Gesture: ${messagesList.length}');
+                                    //print('Messages Length using Gesture: ${messagesList.length}');
                                   });
                                 },
-                                child: Icon(Icons.delete_outline_rounded),
+                                child: const Icon(Icons.delete_outline_rounded),
                               ),
                             ),
                           ),
@@ -128,7 +127,7 @@ class _MessageScreenState extends State<MessageScreen> {
                         },
                         child: Container(
                           padding: const EdgeInsets.only(left: 20, right: 20, bottom: 17),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(color: Color(0xFFEBEBEB), offset: Offset(0, -0.05), blurRadius: 0.01)
@@ -170,9 +169,9 @@ class _MessageScreenState extends State<MessageScreen> {
                                       radius: 10,
                                       child: Text(
                                         MessageDetails().noOfUnreadMessage(index),
-                                        style: TextStyle(fontSize: 12, color: Colors.white),
+                                        style: const TextStyle(fontSize: 12, color: Colors.white),
                                       ),
-                                      backgroundColor: Color(0xFF4CA6A8),
+                                      backgroundColor: const Color(0xFF4CA6A8),
                                     ),
                             ],
                           ),
@@ -194,8 +193,8 @@ class _MessageScreenState extends State<MessageScreen> {
             ],
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 30),
             child: BottomNavBar(),
           ),
         ],
